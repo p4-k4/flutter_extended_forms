@@ -11,29 +11,36 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+NOTE: This project is still very much work in progress.
 
-## Features
+Extends functionality to standard flutter form Widgets:
+Currently only adds extended functionality to `TextFormField`.
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+## Global Features
+- Advanced Async/sync validation.
+- Firestore integration (WIP).
+- Debounce timers.
+- Convinient static field titles.
+
+## Firestore integration features (WIP)
+- Use firestore value as initial value
+- Automatically set value in firestore with Debounce timer.
+- Trigger set value in firestore with on submit.
+
+## TextFormField features
+- Suffix actions - Show multiple suffix icons (with callbacks) based on validation status.
+- Progress indicator - Optionally provide a custom progress widget to display when validation is in progress.
+- Submit suffix action - Optionally provide a custom 'submit' widget when validation qualifies.
+- Clear suffix action - Optionally provide a custom 'clear' widget when validation does not qualify.
+
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
-```dart
-const like = 'sample';
-```
 
 ## Additional information
+Direct contributions, issues and suggestions => [here](https://github.com/p4-k4/flutter_extended_forms).
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+*Author:* Paurini Wiringi
