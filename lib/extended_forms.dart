@@ -106,14 +106,17 @@ class ExtendedTextFormField extends StatefulWidget {
             maxLength > 0),
         assert(enableIMEPersonalizedLearning != null),
         super(key: key);
- 
+
   /// Takes a `List` of `ExtendedValidator` to be used to validate against.
   final List<ExtendedValidator>? validators;
+
   /// The debounce duration before the validator runs.
   /// Defaults to 0 seconds.
   final Duration validatorDebounceDuration;
+
   /// Not yet implemented! Toggle whether the valdiator output is hidden or not.
   final bool validatorOutputHidden;
+
   /// When a `Function` is provided to [onFieldSubmitted], toggle whether or not the value should be validated.
   final bool validateBeforeSubmitting;
   final Widget? suffixActionSubmitIcon;
@@ -126,6 +129,7 @@ class ExtendedTextFormField extends StatefulWidget {
   final Widget? suffixActionsProgressIndicator;
   final double suffixActionSpacing;
   final EdgeInsets? suffixActionsContentPadding;
+
   /// Acts as a static label that appears at the top of the field.
   final Widget? labelTop;
   final String? initialValue;
@@ -260,27 +264,34 @@ class _ExtendedTextFormFieldState extends State<ExtendedTextFormField> {
   }
 
   Future<void> validation(String value) async {
-    // Cancel previously called tasks
-    if (_validatorStatus == ExtendedValidatorStatus.running) {
-      if (_validatorTask != null) {
-        _validatorTask!.cancel();
-        setState(() => _validatorStatus = ExtendedValidatorStatus.stopped);
-        setState(() => _validatorInProgress = false);
+    if (widget.validators == null || (widget.validators?.isEmpty == false)) {
+      setState(() => _validatorStatus = ExtendedValidatorStatus.stopped);
+      setState(() => _validatorInProgress = false);
+
+      return;
+    } else {
+      // Cancel previously called tasks
+      if (_validatorStatus == ExtendedValidatorStatus.running) {
+        if (_validatorTask != null) {
+          _validatorTask!.cancel();
+          setState(() => _validatorStatus = ExtendedValidatorStatus.stopped);
+          setState(() => _validatorInProgress = false);
+        }
       }
-    }
 
-    if (_validatorStatus == ExtendedValidatorStatus.stopped) {
-      setState(() => _validatorStatus = ExtendedValidatorStatus.running);
+      if (_validatorStatus == ExtendedValidatorStatus.stopped) {
+        setState(() => _validatorStatus = ExtendedValidatorStatus.running);
 
-      // Create a new cancelable validator task if `validators` have been supplied.
-      if (widget.validators?.isNotEmpty ?? false) {
-        setState(() => _validatorInProgress = true);
-        setState(() => _validatorTask =
-            ExtendedValidation.createTask(value, widget.validators!));
-        final validationResult = await _validatorTask!.value;
-        setState(() => _validatorResult = validationResult);
-        setState(() => _validatorInProgress = false);
-        setState(() => _validatorStatus = ExtendedValidatorStatus.stopped);
+        // Create a new cancelable validator task if `validators` have been supplied.
+        if (widget.validators?.isNotEmpty ?? false) {
+          setState(() => _validatorInProgress = true);
+          setState(() => _validatorTask =
+              ExtendedValidation.createTask(value, widget.validators!));
+          final validationResult = await _validatorTask!.value;
+          setState(() => _validatorResult = validationResult);
+          setState(() => _validatorInProgress = false);
+          setState(() => _validatorStatus = ExtendedValidatorStatus.stopped);
+        }
       }
     }
   }
@@ -410,25 +421,26 @@ class _ExtendedTextFormFieldState extends State<ExtendedTextFormField> {
                   : null);
     } else {
       return MergeInputDecoration(
-          input1: InputDecoration(
-            errorText: _validatorResult?.message,
-          ),
-          input2: InputDecoration(
-              contentPadding: widget.suffixActionsContentPadding,
-              suffix: children != null && children.isNotEmpty
-                  ? Padding(
-                      padding: const EdgeInsetsDirectional.only(end: 12),
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(12, 0, 0, 0),
-                        child: Wrap(
-                          alignment: WrapAlignment.end,
-                          crossAxisAlignment: WrapCrossAlignment.end,
-                          spacing: widget.suffixActionSpacing,
-                          children: children,
-                        ),
-                      ),
-                    )
-                  : null)).merge();
+              input1: InputDecoration(
+                errorText: _validatorResult?.message,
+              ),
+              input2: InputDecoration(
+                  contentPadding: widget.suffixActionsContentPadding,
+                  suffix: children != null && children.isNotEmpty
+                      ? Padding(
+                          padding: const EdgeInsetsDirectional.only(end: 12),
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(12, 0, 0, 0),
+                            child: Wrap(
+                              alignment: WrapAlignment.end,
+                              crossAxisAlignment: WrapCrossAlignment.end,
+                              spacing: widget.suffixActionSpacing,
+                              children: children,
+                            ),
+                          ),
+                        )
+                      : null))
+          .merge();
     }
   }
 }
