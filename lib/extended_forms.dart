@@ -311,8 +311,30 @@ class _ExtendedTextFormFieldState extends State<ExtendedTextFormField> {
         widget.suffixActions != null &&
         _isFocused) {
       if (_validatorResult?.result == null) {
-        suffixActions.addAll(
-            showOnValid!.where((element) => element.showOnValid == true));
+        if (showOnValid != null && showOnValid.isNotEmpty) {
+          for (var sa in showOnValid) {
+            suffixActions.add(
+              SuffixAction(
+                  icon: sa.icon,
+                  onTap: sa.onTap(_controller.value.text),
+                  showOnValid: sa.showOnValid,
+                  showOnInvalid: sa.showOnInvalid),
+            );
+          }
+        }
+        if (showOnInvalid != null && showOnInvalid.isNotEmpty) {
+          for (var sa in showOnInvalid) {
+            suffixActions.add(
+              SuffixAction(
+                  icon: sa.icon,
+                  onTap: sa.onTap(_controller.value.text),
+                  showOnValid: sa.showOnValid,
+                  showOnInvalid: sa.showOnInvalid),
+            );
+          }
+        }
+        // suffixActions.addAll(
+        //     showOnValid!.where((element) => element.showOnValid == true));
       }
       if (_validatorResult?.result == true &&
           showOnInvalid != null &&
