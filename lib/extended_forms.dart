@@ -264,7 +264,7 @@ class _ExtendedTextFormFieldState extends State<ExtendedTextFormField> {
   }
 
   Future<void> validation(String value) async {
-    if (widget.validators == null || (widget.validators?.isEmpty == false)) {
+    if (widget.validators == null || (widget.validators?.isEmpty == true)) {
       setState(() => _validatorStatus = ExtendedValidatorStatus.stopped);
       setState(() => _validatorInProgress = false);
 
@@ -300,11 +300,10 @@ class _ExtendedTextFormFieldState extends State<ExtendedTextFormField> {
     var suffixActions = <SuffixAction>[];
 
     // Suffix actions
-    List<SuffixAction>? showOnValid =
-        widget.suffixActions?.where((element) => element.showOnValid).toList();
-    List<SuffixAction>? showOnInvalid = widget.suffixActions
-        ?.where((element) => element.showOnInvalid)
-        .toList();
+    Set<SuffixAction>? showOnValid =
+        widget.suffixActions?.where((element) => element.showOnValid).toSet();
+    Set<SuffixAction>? showOnInvalid =
+        widget.suffixActions?.where((element) => element.showOnInvalid).toSet();
 
     // Whether to show suffix actions on invalid and valid.
     if (_validatorStatus == ExtendedValidatorStatus.stopped &&
@@ -313,32 +312,39 @@ class _ExtendedTextFormFieldState extends State<ExtendedTextFormField> {
       if (_validatorResult?.result == null) {
         if (showOnValid != null && showOnValid.isNotEmpty) {
           for (var sa in showOnValid) {
+            // If showOnValid and showOnInvalid are both true, do nothing.
+            if (sa.showOnValid) {
             suffixActions.add(
               SuffixAction(
                   icon: sa.icon,
-                  onTap: sa.onTap(_controller.value.text),
+                  onTap: () async => await sa.onTap(_controller.value.text),
                   showOnValid: sa.showOnValid,
                   showOnInvalid: sa.showOnInvalid),
             );
+            }
+            else {
+          }
           }
         }
-        if (showOnInvalid != null && showOnInvalid.isNotEmpty) {
+        if (showOnInvalid != null) {
           for (var sa in showOnInvalid) {
+            if (sa.showOnValid) {
             suffixActions.add(
               SuffixAction(
                   icon: sa.icon,
-                  onTap: sa.onTap(_controller.value.text),
+                  onTap: () async => await sa.onTap(_controller.value.text),
                   showOnValid: sa.showOnValid,
                   showOnInvalid: sa.showOnInvalid),
             );
+            }
+            else {
+          }
           }
         }
-        // suffixActions.addAll(
-        //     showOnValid!.where((element) => element.showOnValid == true));
       }
       if (_validatorResult?.result == true &&
-          showOnInvalid != null &&
-          showOnInvalid.isNotEmpty) {
+          showOnInvalid != null
+          ) {
         suffixActions.addAll(
             showOnInvalid.where((element) => element.showOnInvalid == true));
       }
