@@ -313,7 +313,7 @@ class _ExtendedTextFormFieldState extends State<ExtendedTextFormField> {
         if (showOnValid != null && showOnValid.isNotEmpty) {
           for (var sa in showOnValid) {
             // If showOnValid and showOnInvalid are both true, do nothing.
-            if (sa.showOnValid) {
+            if (sa.showOnValid && !sa.showOnInvalid) {
             suffixActions.add(
               SuffixAction(
                   icon: sa.icon,
@@ -322,11 +322,9 @@ class _ExtendedTextFormFieldState extends State<ExtendedTextFormField> {
                   showOnInvalid: sa.showOnInvalid),
             );
             }
-            else {
-          }
           }
         }
-        if (showOnInvalid != null) {
+        if (showOnInvalid != null && showOnInvalid.isNotEmpty) {
           for (var sa in showOnInvalid) {
             if (sa.showOnValid) {
             suffixActions.add(
