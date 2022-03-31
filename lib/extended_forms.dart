@@ -52,6 +52,7 @@ class ExtendedTextFormField extends StatefulWidget {
     this.smartQuotesType,
     this.enableSuggestions = true,
     this.maxLengthEnforced = true,
+    this.maxLengthEnforcement,
     this.minLines,
     this.expands = false,
     this.maxLength,
@@ -68,7 +69,7 @@ class ExtendedTextFormField extends StatefulWidget {
     this.cursorColor,
     this.keyboardAppearance,
     this.scrollPadding = const EdgeInsets.all(20.0),
-    this.enableInteractiveSelection,
+    this.enableInteractiveSelection = true,
     this.selectionControls,
     this.buildCounter,
     this.scrollPhysics,
@@ -139,48 +140,49 @@ class ExtendedTextFormField extends StatefulWidget {
   final TextEditingController? controller;
   final int? maxLines;
   final TextInputType? keyboardType;
-  final TextCapitalization? textCapitalization;
+  final TextCapitalization textCapitalization;
   final TextInputAction? textInputAction;
   final TextStyle? style;
   final StrutStyle? strutStyle;
   final TextDirection? textDirection;
-  final TextAlign? textAlign;
+  final TextAlign textAlign;
   final TextAlignVertical? textAlignVertical;
-  final bool? autofocus;
-  final bool? readOnly;
+  final bool autofocus;
+  final bool readOnly;
   final ToolbarOptions? toolbarOptions;
   final bool? showCursor;
-  final String? obscuringCharacter;
-  final bool? obscureText;
-  final bool? autocorrect;
+  final String obscuringCharacter;
+  final bool obscureText;
+  final bool autocorrect;
   final SmartDashesType? smartDashesType;
   final SmartQuotesType? smartQuotesType;
-  final bool? enableSuggestions;
-  final bool? maxLengthEnforced;
+  final bool enableSuggestions;
+  final bool maxLengthEnforced;
+  final MaxLengthEnforcement? maxLengthEnforcement;
   final int? minLines;
-  final bool? expands;
+  final bool expands;
   final int? maxLength;
-  final Function? onTap;
-  final Function? onEditingComplete;
-  final Function? onSaved;
-  final Function(String)? validator;
+  final void Function()? onTap;
+  final void Function()? onEditingComplete;
+  final void Function(String?)? onSaved;
+  final String Function(String?)? validator;
   final List<TextInputFormatter>? inputFormatters;
   final bool? enabled;
-  final double? cursorWidth;
+  final double cursorWidth;
   final double? cursorHeight;
   final Radius? cursorRadius;
   final Color? cursorColor;
   final Brightness? keyboardAppearance;
-  final EdgeInsets? scrollPadding;
-  final bool? enableInteractiveSelection;
+  final EdgeInsets scrollPadding;
+  final bool enableInteractiveSelection;
   final TextSelectionControls? selectionControls;
   final InputCounterWidgetBuilder? buildCounter;
   final ScrollPhysics? scrollPhysics;
-  final bool? autofillHints;
+  final Iterable<String>? autofillHints;
   final AutovalidateMode? autovalidateMode;
   final ScrollController? scrollController;
   final String? restorationId;
-  final bool? enableIMEPersonalizedLearning;
+  final bool enableIMEPersonalizedLearning;
   final FocusNode? focusNode;
 
   @override
@@ -228,14 +230,57 @@ class _ExtendedTextFormFieldState extends State<ExtendedTextFormField> {
         Focus(
           onFocusChange: (value) => setState(() => _isFocused = value),
           child: TextFormField(
-            controller: _controller,
+            initialValue: widget.initialValue,
+            keyboardType: widget.keyboardType,
+            obscureText: widget.obscureText,
+            obscuringCharacter: widget.obscuringCharacter,
+            textCapitalization: widget.textCapitalization,
+            textInputAction: widget.textInputAction,
+            style: widget.style,
+            textDirection: widget.textDirection,
+            strutStyle: widget.strutStyle,
+            focusNode: widget.focusNode,
+            textAlign: widget.textAlign,
+            textAlignVertical: widget.textAlignVertical,
+            autofocus: widget.autofocus,
+            readOnly: widget.readOnly,
+            toolbarOptions: widget.toolbarOptions,
+            showCursor: widget.showCursor,
+            autocorrect: widget.autocorrect,
+            smartDashesType: widget.smartDashesType,
+            smartQuotesType: widget.smartQuotesType,
+            enableSuggestions: widget.enableSuggestions,
+            maxLengthEnforcement: widget.maxLengthEnforcement,
+            minLines: widget.minLines,
+            expands: widget.expands,
+            maxLength: widget.maxLength,
+            maxLines: widget.maxLines,
+            onTap: widget.onTap,
+            onEditingComplete: widget.onEditingComplete,
+            onSaved: widget.onSaved,
+            validator: widget.validator,
+            inputFormatters: widget.inputFormatters,
+            enabled: widget.enabled,
+            cursorWidth: widget.cursorWidth,
+            cursorHeight: widget.cursorHeight,
+            cursorColor: widget.cursorColor,
+            cursorRadius: widget.cursorRadius,
+            keyboardAppearance: widget.keyboardAppearance,
+            scrollPadding: widget.scrollPadding,
+            enableInteractiveSelection: widget.enableInteractiveSelection,
+            scrollPhysics: widget.scrollPhysics,
+            buildCounter: widget.buildCounter,
+            autofillHints: widget.autofillHints,
+            autovalidateMode: widget.autovalidateMode,
+            scrollController: widget.scrollController,
+            restorationId: widget.restorationId,
+            enableIMEPersonalizedLearning: widget.enableIMEPersonalizedLearning,
+            controller: widget.controller ?? _controller,
             decoration: _validatorInProgress == true
                 ? inputDecorationProgress([])
                 : inputDecoration(),
             onChanged: (value) async => onChanged(value),
-            maxLines: widget.maxLines,
             onFieldSubmitted: (String value) => onFieldSubmitted(value),
-            keyboardType: widget.keyboardType,
           ),
         ),
       ],
