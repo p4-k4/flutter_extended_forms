@@ -12,7 +12,7 @@ and the Flutter guide for
 -->
 
 ## Flutter extended forms
-[Imgur](https://imgur.com/Ofo8LgW)
+[Imgur](https://i.imgur.com/EB44I9D.gif)
 
 Extends functionality on standard flutter form Widgets:
 Currently only adds extended functionality to `TextFormField`.
