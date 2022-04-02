@@ -11,7 +11,7 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
-![Logo](https://github.com/p4-k4/flutter_extended_forms/blob/57ac4e7e36ffe6900492a6538af994b5806d8120/logo.png)
+![Logo](https://github.com/p4-k4/flutter_extended_forms/blob/db9b0b72c50b751b5cf5e838bb21bd880d18b6ff/logo.png)
 ## Flutter extended forms
 [![pub package](https://img.shields.io/pub/v/extended_forms.svg)](https://pub.dev/packages/extended_forms)
 [![likes](https://badges.bar/extended_forms/likes)](https://pub.dev/packages/extended_forms/score)
