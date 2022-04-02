@@ -15,3 +15,6 @@
 
 ## 0.0.6
 * Implemmnted missing fields, all standard `TextFormField` fields should now be accessible.
+
+## 0.0.7
+* Add example, update README.
