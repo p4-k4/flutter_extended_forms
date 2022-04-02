@@ -18,3 +18,6 @@
 
 ## 0.0.7
 * Add example, update README.
+
+## 0.0.8
+* Update READEME.
