@@ -35,10 +35,51 @@ Currently only adds extended functionality to `TextFormField`.
 
 
 ## Getting started
+Import the package.
+```dart
+import 'package:extended_forms/extended_forms.dart';
+```
 
+Create some validators with a debounce time.
+```dart
+const validatorDebounceDuration = Duration(seconds: 2);
+
+final validatorsUsername = [
+  ExtendedValidator(
+      validator: (String value) => value.length <= 4,
+      message: 'Must be longer than 4 characters.',
+      isAsync: false),
+  ExtendedValidator(
+      validator: (String value) => value.isEmpty,
+      message: 'Cannot be empty.',
+      isAsync: false)
+];
+```
 
 ## Usage
-
+```dart
+ExtendedTextFormField(
+  // A convinience field to easily add a fixed label above.
+  labelTop: const Text('Username'),
+  // Specify a progress indicator that shows during async validation.
+  suffixActionsProgressIndicator:
+      const LinearProgressIndicator(),
+  // Specify an icon for the "submit" suffix action button.
+  suffixActionSubmitIcon: const Icon(Icons.check),
+  // Specify an icon for the "clear" suffix action button.
+  suffixActionClearIcon: const Icon(Icons.clear),
+  // Whether to clear the field on submit (doesn't work for onFieldSubmitted).
+  suffixActionClearOnSubmit: false,
+  // Whether to validate the value before submitting - Evaluates `ExtendedValidator`'s.
+  validateBeforeSubmitting: true,
+  // The function to call when submit is tapped.
+  suffixActionSubmitOnTap: print,
+  // A `List` of `ExtendedValidator` to validate against.
+  validators: validatorsUsername,
+  // Specify a global debounce time for the specified `ExtendedValidator`'s.
+  validatorDebounceDuration: validatorDebounceDuration,
+),
+```
 
 ## Additional information
 Direct contributions, issues and suggestions => [here](https://github.com/p4-k4/flutter_extended_forms).
