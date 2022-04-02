@@ -42,7 +42,7 @@ NOTE: This project is still very much work in progress.
 - Submit suffix action - Optionally provide a custom 'submit' icon/widget when validation qualifies.
 - Clear suffix action - Optionally provide a custom 'clear' icon/widget when validation does not qualify.
 
-## Vaidation Features
+## Validation Features
 - Easily create and use Async/sync validators.
 - Debounce timers.
 - Acccounts for both external and internal validation prior to form submission.
