@@ -13,11 +13,10 @@ and the Flutter guide for
 
 ![Logo](https://github.com/p4-k4/flutter_extended_forms/blob/57ac4e7e36ffe6900492a6538af994b5806d8120/logo.png)
 ## Flutter extended forms
-
-[![pub package](https://img.shields.io/pub/v/sentry.svg)](https://pub.dev/packages/extended_forms)
-[![likes](https://badges.bar/sentry/likes)](https://pub.dev/packages/extended_forms/score)
-[![popularity](https://badges.bar/sentry/popularity)](https://pub.dev/packages/extended_forms/score)
-[![pub points](https://badges.bar/sentry/pub%20points)](https://pub.dev/packages/extended_forms/score)
+[![pub package](https://img.shields.io/pub/v/extended_forms.svg)](https://pub.dev/packages/extended_forms)
+[![likes](https://badges.bar/extended_forms/likes)](https://pub.dev/packages/extended_forms/score)
+[![popularity](https://badges.bar/extended_forms/popularity)](https://pub.dev/packages/extended_forms/score)
+[![pub points](https://badges.bar/extended_forms/pub%20points)](https://pub.dev/packages/extended_forms/score)
 
 ![Imgur](https://i.imgur.com/EB44I9D.gif)
 
