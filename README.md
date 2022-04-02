@@ -11,14 +11,17 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
-NOTE: This project is still very much work in progress.
+## Flutter extended forms
+[Imgur](https://imgur.com/Ofo8LgW)
 
-Extends functionality to standard flutter form Widgets:
+Extends functionality on standard flutter form Widgets:
 Currently only adds extended functionality to `TextFormField`.
+
+NOTE: This project is still very much work in progress.
 
 ## Global Features
 - Advanced Async/sync validation.
-- Firestore integration (WIP).
+- Firestore set/update/get integration (WIP).
 - Debounce timers.
 - Convinient static field titles.
 
@@ -27,12 +30,17 @@ Currently only adds extended functionality to `TextFormField`.
 - Automatically set value in firestore with Debounce timer.
 - Trigger set value in firestore with on submit.
 
-## TextFormField features
+## TextFormField extended features
 - Suffix actions - Show multiple suffix icons (with callbacks) based on validation status.
-- Progress indicator - Optionally provide a custom progress widget to display when validation is in progress.
-- Submit suffix action - Optionally provide a custom 'submit' widget when validation qualifies.
-- Clear suffix action - Optionally provide a custom 'clear' widget when validation does not qualify.
+- Progress indicator - Optionally provide a custom progress widget to display when async validation is in progress.
+- Submit suffix action - Optionally provide a custom 'submit' icon/widget when validation qualifies.
+- Clear suffix action - Optionally provide a custom 'clear' icon/widget when validation does not qualify.
 
+## Vaidation Features
+- Easily create and use Async/sync validators.
+- Debounce timers.
+- Acccounts for both external and internal validation prior to form submission.
+- Easily specify custom validator message; per validator.
 
 ## Getting started
 Import the package.
@@ -52,8 +60,19 @@ final validatorsUsername = [
   ExtendedValidator(
       validator: (String value) => value.isEmpty,
       message: 'Cannot be empty.',
-      isAsync: false)
+      isAsync: false),
+  ExtendedValidator(
+      validator: asyncValidator,
+      message: 'Cannot contiain whitespace.',
+      // Specify if is an async valdiator.
+      isAsync: true),
 ];
+
+// Some long running task simulation.
+Future<bool> asyncValidator(String value) async {
+  await Future.delayed(const Duration(seconds:3));
+  return value.contains(' ');
+}
 ```
 
 ## Usage

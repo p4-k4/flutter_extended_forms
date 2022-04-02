@@ -70,5 +70,16 @@ final validatorsUsername = [
   ExtendedValidator(
       validator: (String value) => value.isEmpty,
       message: 'Cannot be empty.',
-      isAsync: false)
+      isAsync: false),
+  ExtendedValidator(
+      validator: asyncValidator,
+      message: 'Cannot contiain whitespace.',
+      // Specify if is an async valdiator.
+      isAsync: true),
 ];
+
+// Some long running task simulation.
+Future<bool> asyncValidator(String value) async {
+  await Future.delayed(const Duration(seconds:3));
+  return value.contains(' ');
+}
