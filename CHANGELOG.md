@@ -7,3 +7,11 @@
 ## 0.0.3
 * Fixed issue with suffix actions callbacks.
 
+## 0.0.4
+* Resolved unimplemented fields.
+
+## 0.0.5
+* If no validdators are supplied, suffix actions assume 'valid'.
+
+## 0.0.6
+* Implemmnted missing fields, all standard `TextFormField` fields should now be accessible.
